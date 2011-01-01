@@ -62,7 +62,7 @@ need to include it as a resource in your base configuration:
 
 You can now access your breadcrumbs like any Symfony service:
 
-    $menu = $container->get('breadcrumbs.main');
+    $breadcrumbs = $container->get('breadcrumbs.main');
 
 From a controller, it's even easier:
 
