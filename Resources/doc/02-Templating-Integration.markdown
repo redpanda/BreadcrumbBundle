@@ -26,7 +26,7 @@ Templating Integration
 		}
 	}
 
-### Declare and configure your menu service
+### Declare and configure your breadcrumbs service
 
 Next, declare your breadcrumbs service class via configuration. An example in XML
 is shown below:
