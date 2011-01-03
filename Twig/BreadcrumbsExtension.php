@@ -16,7 +16,7 @@ class BreadcrumbsExtension extends \Twig_Extension
     /**
      * @var array
      */
-    protected $menus;
+    protected $breadcrumbs;
 
     /**
      * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
