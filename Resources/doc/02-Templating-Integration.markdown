@@ -78,6 +78,6 @@ you access it.
 
 ### Access the breadcrumbs from a template
 
-You now can render the breadcrumbs in a template:
+You can render the breadcrumbs in a template:
 
     echo $view['breadcrumbs']->get('main')->render()
