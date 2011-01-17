@@ -31,10 +31,13 @@ class BreadcrumbItem implements \ArrayAccess, \Countable, \IteratorAggregate
      * Class constructor
      * 
      * @param string $route
+     * @param array  $attributes
+     * @param string $childClass
      */
     public function __construct($route, $attributes = array(), $childClass = 'Bundle\BreadcrumbBundle\BreadcrumbPath')
     {
         $this->route = (string) $route;
+        $this->attributes = $attributes;
         $this->childClass = $childClass;
     }
     
@@ -80,6 +83,25 @@ class BreadcrumbItem implements \ArrayAccess, \Countable, \IteratorAggregate
     	$path->setParent($this);
     	
     	return $path;
+    }
+    
+    public function getAttributes()
+    {
+        return $this->attributes;
+    }
+    
+    public function setAttributes(array $attributes)
+    {
+        $this->attributes = $attributes;
+        
+        return $this;
+    }
+    
+    public function setAttribute($id, $value)
+    {
+        $this->attributes[$id] = $value;
+        
+        return $this;
     }
     
     public function getChildren()

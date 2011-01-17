@@ -16,7 +16,7 @@ class BreadcrumbsExtension extends \Twig_Extension
     /**
      * @var array
      */
-    protected $breadcrumbs;
+    protected $breadcrumbs = array();
 
     /**
      * @param \Symfony\Component\DependencyInjection\ContainerInterface $container
@@ -26,12 +26,7 @@ class BreadcrumbsExtension extends \Twig_Extension
     {
         $this->container = $container;
 
-        $this->breadcrumbs = array();
-        foreach ($this->container->findTaggedServiceIds('breadcrumbs') as $id => $attributes) {
-            if (isset($attributes[0]['alias'])) {
-                $this->breadcrumbs[$attributes[0]['alias']] = $id;
-            }
-        }
+        $this->breadcrumbs = $this->container->getParameter('breadcrumbs.services');
     }
 
     /**
