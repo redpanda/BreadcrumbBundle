@@ -8,18 +8,18 @@ Templating Integration
     namespace Application\MyBundle\Breadcrumbs;
     use Bundle\BreadcrumbBundle\Breadcrumbs;
     use Symfony\Component\DependencyInjection\ContainerInterface;
-    
+
     class MainBreadcrumbs extends Breadcrumbs
     {
     	public function __construct(ContainerInterface $container)
     	{
 	    	parent::__construct($container);
-	    	
+
 		    $this->setRoot('Home', 'homepage');
-		
+
 			$this->addChild('blog')
 				->addPath('Blog', 'blog');
-		
+
 			$this->addChild('blog_post')
 				->addPath('Blog', 'blog');
 				->addPath(null, 'blog_post', null, array('param_converter' => 'post');
@@ -32,7 +32,7 @@ Next, declare your breadcrumbs service class via configuration. An example in XM
 is shown below:
 
     # src/Application/MyBundle/Resources/config/breadcrumbs.xml
-    
+
     <?xml version="1.0" encoding="UTF-8"?>
     <container xmlns="http://www.symfony-project.org/schema/dic/services"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -55,7 +55,7 @@ need to include it as a resource in your base configuration:
 
     # app/config/config.xml
     ...
-    
+
     <import resource="MyBundle/Resources/config/breadcrumbs.xml" />
 
 ### Access the breadcrumbs service

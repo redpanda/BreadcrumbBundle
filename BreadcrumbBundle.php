@@ -13,7 +13,7 @@ class BreadcrumbBundle extends BaseBundle
         parent::registerExtensions($container);
         $container->addCompilerPass(new BreadcrumbsPass());
     }
-    
+
     /**
 	 * {@inheritdoc}
 	 */

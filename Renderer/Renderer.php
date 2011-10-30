@@ -83,7 +83,7 @@ abstract class Renderer
 
     /**
      * Get whether to render compressed HTML or not
-     * 
+     *
      * @return bool
      */
     public function getRenderCompressed()
@@ -101,7 +101,7 @@ abstract class Renderer
 
     /**
      * Get the HTML charset
-     * 
+     *
      * @return string
      */
     public function getCharset()

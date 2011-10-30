@@ -13,13 +13,13 @@ class BreadcrumbsPass implements CompilerPassInterface
         }
 
         $breadcrumbs = array();
-        
+
         foreach ($container->findTaggedServiceIds('breadcrumbs') as $id => $attributes) {
             if (isset($attributes[0]['alias'])) {
                 $breadcrumbs[$attributes[0]['alias']] = $id;
             }
         }
-        
+
         $container->setParameter('breadcrumbs.services', $breadcrumbs);
     }
 }

@@ -18,69 +18,69 @@ class Breadcrumbs implements \ArrayAccess, \Countable, \IteratorAggregate
 	protected $childClass = null;
 	protected $renderer = null;
 	protected $request = null;
-	
+
 	public function __construct(ContainerInterface $container = null, $childClass = 'Bundle\BreadcrumbBundle\BreadcrumbItem')
 	{
 		$this->childClass = $childClass;
 		$this->container = $container;
 		$this->currentRoute = $this->container->get('request')->get('_route');
 	}
-	
+
 	public function getContainer()
 	{
 		return $this->container;
 	}
-	
+
 	public function setRoot($name, $route = null)
 	{
 		if (!$name) {
 			throw new Exception('You must provide a name for the root');
 		}
-		
+
 		$this->rootName = $name;
 		if (null !== $route) {
 			$this->rootUri = $route;
 		}
-		
+
 		$this->root = true;
-		
+
 		foreach($this->getChildren() as $child) {
 			if (!$child->hasRoot()) {
 				$child->addRoot();
 			}
 		}
 	}
-	
+
 	public function hasRoot()
 	{
 		return $this->root;
 	}
-	
+
 	public function getRootName()
 	{
 		return $this->rootName;
 	}
-	
+
 	public function getRootUri()
 	{
 		return $this->rootUri;
 	}
-	
+
 	public function setLost($name)
 	{
 		$this->lostName = $name;
 	}
-	
+
 	public function getSeparator()
 	{
 		return $this->separator;
 	}
-	
+
 	public function setSeparator($separator)
 	{
 		$this->separator = $separator;
 	}
-	
+
     /**
      * Add a child breadcrumb item to this breadcrumb
      *
@@ -93,34 +93,34 @@ class Breadcrumbs implements \ArrayAccess, \Countable, \IteratorAggregate
         if (!$child instanceof BreadcrumbItem) {
             $child = $this->createChild($child, $attributes = array(), $class);
         }
-        
+
         $child->setParent($this);
-        
+
         $this->children[$child->getRoute()] = $child;
 
         return $child;
     }
-    
+
     public function getChildClass()
     {
     	return $this->childClass;
     }
-    
+
     public function getChild($name)
     {
     	return isset($this->children[$name]) ? $this->children[$name] : null;
     }
-    
+
     public function getChildren()
     {
     	return $this->children;
     }
-	
+
     /**
      * Creates a new BreadcrumbItem to be the child of this breadcrumds
-     * 
+     *
      * @param string  $controller
-     * 
+     *
      * @return BreadcrumbItem
      */
     protected function createChild($route, $attributes = array(), $class = null)
@@ -128,14 +128,14 @@ class Breadcrumbs implements \ArrayAccess, \Countable, \IteratorAggregate
         if (null === $route) {
             throw new Exception("The route cannot be null");
         }
-        
+
         if (null !== $class) {
         	return new $class($route, $attributes);
         }
 
         return new $this->childClass($route, $attributes);
     }
-    
+
     /**
      * Sets renderer which will be used to render menu items.
      *
@@ -145,7 +145,7 @@ class Breadcrumbs implements \ArrayAccess, \Countable, \IteratorAggregate
     {
         $this->renderer = $renderer;
     }
-    
+
     public function getRenderer()
     {
         if(null === $this->renderer) {
@@ -154,7 +154,7 @@ class Breadcrumbs implements \ArrayAccess, \Countable, \IteratorAggregate
 
         return $this->renderer;
     }
-    
+
     /**
      * Renders the menu tree by using the statically set renderer.
      *
@@ -164,8 +164,8 @@ class Breadcrumbs implements \ArrayAccess, \Countable, \IteratorAggregate
     {
         return $this->getRenderer()->render($this->getChild($this->currentRoute));
     }
-    
-    
+
+
     /**
      * Implements Countable
      */
