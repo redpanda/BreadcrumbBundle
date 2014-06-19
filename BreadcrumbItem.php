@@ -11,7 +11,7 @@ class BreadcrumbItem implements \ArrayAccess, \Countable, \IteratorAggregate
     	$route            = null,    // the route of this breadcrumb item
     	$attributes       = null,    // an array of attributes for the ul
 		$childClass       = null;    // the child class of this breadcrumb item
-        
+
     /**
      * Metadata on this breadcrumb item
      */
@@ -19,17 +19,17 @@ class BreadcrumbItem implements \ArrayAccess, \Countable, \IteratorAggregate
 		$parent           = null,    // parent Breadcrumbs
     	$children         = array(), // an array of BreadcrumPath children
     	$root             = false;   // whether or not this breadcrumb item have a root
-    	
+
     /**
-     * The renderer used to render this breadcrumb item 
-     * 
+     * The renderer used to render this breadcrumb item
+     *
      * @var RendererInterface
      */
     protected $renderer   = null;
-    
+
     /**
      * Class constructor
-     * 
+     *
      * @param string $route
      * @param array  $attributes
      * @param string $childClass
@@ -40,38 +40,38 @@ class BreadcrumbItem implements \ArrayAccess, \Countable, \IteratorAggregate
         $this->attributes = $attributes;
         $this->childClass = $childClass;
     }
-    
+
     public function hasRoot()
     {
     	return $this->root;
     }
-    
+
     public function addRoot()
     {
     	if (!$this->hasRoot()) {
 	    	$path = $this->createPath($this->getParent()->getRootName(), $this->getParent()->getRootUri());
-	    	
+
 	    	$childrenTemp = array();
 	    	$childrenTemp[] = $path;
 	    	foreach($this->getChildren() as $child)
 	    	{
 	    		$childrenTemp[] = $child;
 	    	}
-	    	
+
 	    	$this->root = true;
 	    	$this->children = $childrenTemp;
     	}
     }
-    
+
     public function addPath($name, $route, $attributes = array(), $options = array(), $class = null)
     {
     	$path = $this->createPath($name, $route, $attributes, $options, $class = null);
-    	
+
         $this->children[] = $path;
 
         return $this;
     }
-    
+
     protected function createPath($name, $route, $attributes = array(), $options = array(), $class = null)
     {
     	if (null === $class) {
@@ -79,67 +79,67 @@ class BreadcrumbItem implements \ArrayAccess, \Countable, \IteratorAggregate
     	} else {
     		$path = new $class($name, $route, $attributes, $options);
     	}
-    	
+
     	$path->setParent($this);
-    	
+
     	return $path;
     }
-    
+
     public function getAttributes()
     {
         return $this->attributes;
     }
-    
+
     public function setAttributes(array $attributes)
     {
         $this->attributes = $attributes;
-        
+
         return $this;
     }
-    
+
     public function setAttribute($id, $value)
     {
         $this->attributes[$id] = $value;
-        
+
         return $this;
     }
-    
+
     public function getChildren()
     {
     	return $this->children;
     }
-    
+
     public function hasChildren()
     {
     	return empty($this->chidlren);
     }
-    
+
     public function getRoute()
     {
     	return $this->route;
     }
-    
+
     public function getParent()
     {
     	return $this->parent;
     }
-    
+
     public function setParent($parent)
     {
     	$this->parent = $parent;
-    	
+
     	if ($this->parent->hasRoot()) {
     		$this->addPath($this->parent->getRootName(), $this->parent->getRootUri());
-    		
+
     		$this->root = true;
     	}
     }
-    
+
     public function getChild($name)
     {
     	return isset($this->children[$name]) ? $this->children[$name] : null;
     }
-    
+
     /**
      * Implements Countable
      */

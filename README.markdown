@@ -12,7 +12,7 @@ The bulk of the documentation can be found in the `Resources/doc` directory.
 Add BreadcrumbBundle to your src/Bundle dir
 
     $ git submodule add git://github.com/redpanda/BreadcrumbBundle.git src/Bundle/BreadcrumbBundle
-    
+
 ## Initializing the bundle
 
 To start using the bundle, initialize the bundle in your Kernel. This
@@ -43,7 +43,7 @@ and for `config.xml`:
 
     <!-- to enable the PHP view helper -->
     <breadcrumbs:templating />
-    
+
 ## Credits
 
 This bundle was originally ported from sfOrmBreadcrumbsPlugin, a plugin for symfony1.
